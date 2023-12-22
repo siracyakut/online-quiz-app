@@ -14,6 +14,6 @@
         rgba(255, 255, 255, 0.95),
         rgba(255, 255, 255, 0.95)
       ),
-      url("bg-pattern.svg");
+      url("/bg-pattern.svg");
   }
 }

@@ -32,7 +32,7 @@ export default function Login() {
 
   return (
     <div className="border p-5 rounded-lg flex flex-col gap-y-5 items-center justify-center">
-      <h3 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-t from-yellow-900 to-yellow-400">
+      <h3 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-t from-yellow-900 to-yellow-400">
         Login to Your Account
       </h3>
       <Formik
@@ -60,7 +60,7 @@ export default function Login() {
         <p className="text-black/50 font-medium italic">OR</p>
         <div className="flex-1 h-0.5 bg-black/20 rounded-lg" />
       </div>
-      Google login
+      google login will be added here
     </div>
   );
 }

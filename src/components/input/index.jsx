@@ -7,6 +7,7 @@ export default function Input({ label, name, ...props }) {
       {label && <div className="mb-2.5 text-sm text-black">{label}</div>}
       <Field
         name={name}
+        autoComplete="off"
         className="w-full h-10 bg-transparent border border-zinc-500 rounded outline-none px-3 text-15 font-medium text-black focus:border-zinc-400"
         {...props}
       />
