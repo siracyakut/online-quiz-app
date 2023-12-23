@@ -31,37 +31,45 @@ export default function GameAnswers({ data, limit }) {
   }, [currentQuestion]);
 
   const handleAnswer = (answer) => {
-    setClicked(true);
-    addUserAnswer(
-      import.meta.env.VITE_SECONDS_PER_QUESTION - time,
-      answer === data.correctAnswer,
-    );
-    if (answer === data.correctAnswer) {
-      const score = calculateTotalScore(
-        limit,
-        [
-          ...userAnswers,
-          {
-            time: import.meta.env.VITE_SECONDS_PER_QUESTION - time,
-            result: answer === data.correctAnswer,
-          },
-        ],
-        import.meta.env.VITE_SECONDS_PER_QUESTION,
+    if (!clicked) {
+      setClicked(true);
+      addUserAnswer(
+        import.meta.env.VITE_SECONDS_PER_QUESTION - time,
+        answer === data.correctAnswer,
       );
-      setScore(score);
-      playCorrect();
-    } else {
-      playWrong();
-    }
-    setTimeout(() => {
-      setClicked(false);
-      if (currentQuestion === limit - 1) {
-        navigate("/result");
+      if (answer === data.correctAnswer) {
+        const score = calculateTotalScore(
+          limit,
+          [
+            ...userAnswers,
+            {
+              time: import.meta.env.VITE_SECONDS_PER_QUESTION - time,
+              result: answer === data.correctAnswer,
+            },
+          ],
+          import.meta.env.VITE_SECONDS_PER_QUESTION,
+        );
+        setScore(score);
+        playCorrect();
       } else {
-        incrementCurrentQuestion();
+        playWrong();
       }
-      setTime(import.meta.env.VITE_SECONDS_PER_QUESTION);
-    }, 2000);
+      setTimeout(() => {
+        setClicked(false);
+        if (currentQuestion === limit - 1) {
+          navigate("/result", {
+            state: {
+              category: data.category,
+              difficulty: data.difficulty,
+              limit,
+            },
+          });
+        } else {
+          incrementCurrentQuestion();
+        }
+        setTime(import.meta.env.VITE_SECONDS_PER_QUESTION);
+      }, 2000);
+    }
   };
 
   return (
@@ -80,9 +88,10 @@ export default function GameAnswers({ data, limit }) {
             },
           )}
           onClick={() => handleAnswer(answer)}
+          disabled={clicked}
         >
           <span className="flex-shrink-0">
-            {clicked ? (
+            {!clicked ? (
               answer === data.correctAnswer ? (
                 <FaCheck />
               ) : (

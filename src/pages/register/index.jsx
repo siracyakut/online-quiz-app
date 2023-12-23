@@ -2,11 +2,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { registerSchema } from "~/validations";
 import Input from "~/components/input";
 import { useMutation } from "react-query";
-import { registerService } from "~/services/auth";
+import { registerGoogleService, registerService } from "~/services/auth";
 import toast from "react-hot-toast";
 import { login } from "~/store/auth/actions";
+import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import * as jose from "jose";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -14,20 +14,25 @@ export default function Register() {
   const mutation = useMutation({
     mutationFn: (data) => registerService(data),
     onSuccess: async (data) => {
-      const { payload } = await jose.jwtVerify(
-        data.data,
-        new TextEncoder().encode(import.meta.env.VITE_JWT_SECRET),
-      );
-
-      if (payload) {
-        toast.success("You are successfully registered!");
-        login({ email: payload.email, admin: payload.admin });
-        navigate("/", { replace: true });
-      } else {
-        toast.error("Invalid token!");
-      }
+      await login(data.data, true);
+      navigate("/", { replace: true });
     },
-    onError: (error) => toast.error(error.data),
+    onError: (error) =>
+      toast.error(
+        error.data || "Couldn't connect to the server, please try again later.",
+      ),
+  });
+
+  const googleMutation = useMutation({
+    mutationFn: (data) => registerGoogleService(data),
+    onSuccess: async (data) => {
+      await login(data.data, true);
+      navigate("/", { replace: true });
+    },
+    onError: (error) =>
+      toast.error(
+        error.data || "Couldn't connect to the server, please try again later.",
+      ),
   });
 
   return (
@@ -77,7 +82,12 @@ export default function Register() {
         <p className="text-black/50 font-medium italic">OR</p>
         <div className="flex-1 h-0.5 bg-black/20 rounded-lg" />
       </div>
-      google login will be added here
+      <GoogleLogin
+        onSuccess={(credentialResponse) =>
+          googleMutation.mutate({ jwt: credentialResponse.credential })
+        }
+        onError={() => toast.error("Register failed!")}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getTriviaQuestions } from "~/services/game";
 import { useEffect } from "react";
@@ -13,6 +13,7 @@ import {
 import GameArea from "~/components/game-area";
 import Loading from "~/components/loading";
 import { useGame } from "~/store/game/hooks";
+import toast from "react-hot-toast";
 
 export default function Game() {
   const states = useLocation().state;
@@ -33,6 +34,12 @@ export default function Game() {
         setScore(0);
         setUserAnswers([]);
       },
+      onError: () => {
+        toast.error(
+          "There was a problem with the trivia api, please try again later.",
+        );
+        navigate("/", { replace: true });
+      },
     },
   );
 
@@ -42,13 +49,13 @@ export default function Game() {
     if (!isFetching && !error) {
       timer = setInterval(() => {
         if (time === 0) {
+          addUserAnswer(
+            import.meta.env.VITE_SECONDS_PER_QUESTION - time,
+            false,
+          );
           if (currentQuestion === limit - 1) {
-            navigate("/result");
+            navigate("/result", { state: { category, difficulty, limit } });
           } else {
-            addUserAnswer(
-              import.meta.env.VITE_SECONDS_PER_QUESTION - time,
-              false,
-            );
             incrementCurrentQuestion();
             setTime(import.meta.env.VITE_SECONDS_PER_QUESTION);
             return;
@@ -63,5 +70,13 @@ export default function Game() {
     };
   }, [isFetching, time]);
 
-  return isFetching ? <Loading /> : <GameArea data={data} limit={limit} />;
+  return states ? (
+    isFetching ? (
+      <Loading />
+    ) : (
+      <GameArea data={data} limit={limit} />
+    )
+  ) : (
+    <Navigate to="/" />
+  );
 }
