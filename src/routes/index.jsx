@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 // Layouts
 import MainLayout from "~/layouts/main";
+import AdminLayout from "~/layouts/admin";
 
 // Pages
 import Home from "~/pages/home";
@@ -13,9 +14,14 @@ import Profile from "~/pages/profile";
 import Result from "~/pages/result";
 import Leaderboards from "~/pages/leaderboards";
 
+import AdminHome from "~/admin/home";
+
 // Components
 import ProtectedRoute from "~/routes/components/protected-route";
 import GuestRoute from "~/routes/components/guest-route";
+import AdminQuizzes from "~/admin/quizzes";
+import AdminNewQuiz from "~/admin/quizzes/new-quiz";
+import UserQuizzes from "~/pages/user-quizzes";
 
 const routes = createBrowserRouter([
   {
@@ -77,6 +83,32 @@ const routes = createBrowserRouter([
       {
         path: "/leaderboards",
         element: <Leaderboards />,
+      },
+      {
+        path: "/user-quizzes",
+        element: (
+          <ProtectedRoute>
+            <UserQuizzes />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <AdminHome />,
+      },
+      {
+        path: "/admin/quizzes",
+        element: <AdminQuizzes />,
+      },
+      {
+        path: "/admin/quizzes/new",
+        element: <AdminNewQuiz />,
       },
     ],
   },

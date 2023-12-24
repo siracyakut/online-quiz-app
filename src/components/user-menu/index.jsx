@@ -7,12 +7,17 @@ import { useMutation } from "react-query";
 import { logoutService } from "~/services/auth";
 import { logout } from "~/store/auth/actions";
 import toast from "react-hot-toast";
-import { MdLeaderboard } from "react-icons/md";
+import {
+  MdAdminPanelSettings,
+  MdLeaderboard,
+  MdManageSearch,
+} from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs";
 import useBreakpoint from "~/hooks/use-breakpoint";
+import PropTypes from "prop-types";
 
-export default function UserMenu() {
-  const { email } = useAuth();
+export default function UserMenu({ adminPage }) {
+  const { email, admin } = useAuth();
   const navigate = useNavigate();
   const breakpoint = useBreakpoint();
 
@@ -31,13 +36,23 @@ export default function UserMenu() {
 
   return (
     <div className="flex items-center justify-center gap-x-4">
-      <Link
-        to="/leaderboards"
-        className="flex items-center h-7 md:h-auto gap-x-2 px-4 py-1 bg-blue-400 rounded-lg text-white font-medium hover:bg-blue-600 transition-all"
-      >
-        <MdLeaderboard />
-        {breakpoint !== "mobile" && <p>Leaderboards</p>}
-      </Link>
+      {adminPage && admin ? (
+        <Link
+          to="/admin/quizzes/new"
+          className="flex items-center h-7 md:h-auto gap-x-2 px-4 py-1 bg-blue-400 rounded-lg text-white font-medium hover:bg-blue-600 transition-all"
+        >
+          <MdManageSearch size={20} />
+          {breakpoint !== "mobile" && <p>Add New Quiz</p>}
+        </Link>
+      ) : (
+        <Link
+          to="/leaderboards"
+          className="flex items-center h-7 md:h-auto gap-x-2 px-4 py-1 bg-blue-400 rounded-lg text-white font-medium hover:bg-blue-600 transition-all"
+        >
+          <MdLeaderboard />
+          {breakpoint !== "mobile" && <p>Leaderboards</p>}
+        </Link>
+      )}
       <Menu as="div" className="relative">
         <Menu.Button className="flex items-center h-7 md:h-auto gap-x-2 px-4 py-1 bg-blue-400 rounded-lg text-white font-medium hover:bg-blue-600 transition-all">
           <BsPersonCircle />
@@ -74,6 +89,17 @@ export default function UserMenu() {
                 My Profile
               </Link>
             </Menu.Item>
+            {admin === 1 && (
+              <Menu.Item>
+                <Link
+                  className="flex items-center gap-x-1 px-4 py-2 text-white hover:bg-blue-600"
+                  to="/admin"
+                >
+                  <MdAdminPanelSettings />
+                  Admin Panel
+                </Link>
+              </Menu.Item>
+            )}
             <Menu.Item>
               <button
                 className="flex items-center gap-x-1 px-4 py-2 text-white bg-red-400 hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -91,3 +117,7 @@ export default function UserMenu() {
     </div>
   );
 }
+
+UserMenu.propTypes = {
+  adminPage: PropTypes.bool.isRequired,
+};

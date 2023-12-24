@@ -52,10 +52,10 @@ export default function Register() {
       >
         <Form className="grid gap-y-4">
           <Input name="email" label="Email: " />
-          <Input name="password" type="password" label="Password: " />
+          <Input name="password" variant="pass" label="Password: " />
           <Input
             name="confirmPassword"
-            type="password"
+            variant="pass"
             label="Confirm Password: "
           />
           <div className="text-sm text-black">Terms & Conditions:</div>

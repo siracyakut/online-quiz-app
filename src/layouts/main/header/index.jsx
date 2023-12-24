@@ -21,7 +21,7 @@ export default function Header() {
         Quiz App <span className="font-medium text-xs">v1.0</span>
       </Link>
       {email ? (
-        <UserMenu />
+        <UserMenu adminPage={false} />
       ) : (
         <>
           <div className="hidden md:flex items-center justify-center gap-x-10 md:gap-x-20">

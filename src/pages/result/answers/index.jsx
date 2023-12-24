@@ -28,7 +28,7 @@ export default function ResultAnswers({ answers }) {
           </div>
           <div className="flex items-center gap-x-1.5">
             <FaStar color="orange" />
-            <CountUp start={0} end={score} />
+            <CountUp start={0} end={score} decimals={2} />
           </div>
         </div>
         {answers.map((answer, idx) => (

@@ -14,6 +14,7 @@ import GameArea from "~/components/game-area";
 import Loading from "~/components/loading";
 import { useGame } from "~/store/game/hooks";
 import toast from "react-hot-toast";
+import { getQuizService } from "~/services/quiz";
 
 export default function Game() {
   const states = useLocation().state;
@@ -21,12 +22,15 @@ export default function Game() {
   const category = states && states.category;
   const limit = states && states.limit;
   const isTrivia = states && states.isTrivia;
+  const quizId = states && states?.quizId;
   const { time, currentQuestion } = useGame();
   const navigate = useNavigate();
 
   const { data, error, isFetching } = useQuery(
     ["questions", category],
-    () => getTriviaQuestions(difficulty, category, limit),
+    isTrivia
+      ? () => getTriviaQuestions(difficulty, category, limit)
+      : () => getQuizService({ quizId }),
     {
       onSuccess: () => {
         setCurrentQuestion(0);
@@ -74,7 +78,7 @@ export default function Game() {
     isFetching ? (
       <Loading />
     ) : (
-      <GameArea data={data} limit={limit} />
+      <GameArea data={isTrivia ? data : data.data} limit={limit} />
     )
   ) : (
     <Navigate to="/" />

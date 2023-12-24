@@ -40,15 +40,29 @@ export default function Home() {
               <p className="text-black font-medium italic">OR</p>
               <div className="flex-1 h-0.5 bg-black/20 rounded-lg" />
             </div>
-            <button className="px-4 py-2 bg-yellow-400 rounded-lg shadow-md hover:bg-yellow-600 hover:-translate-y-1 transition-all">
+            <Link
+              to="/user-quizzes"
+              className="text-center px-4 py-2 bg-yellow-400 rounded-lg shadow-md hover:bg-yellow-600 hover:-translate-y-1 transition-all"
+            >
               Check out the quizzes created by our own members!
-            </button>
+            </Link>
           </>
         ) : (
-          <p className="text-xl text-center md:text-start">
-            Log in now to solve challenging and exciting quizzes and compete
-            with your rivals!
-          </p>
+          <>
+            <p className="text-xl text-center md:text-start">
+              Log in now to solve challenging and exciting quizzes and compete
+              with your rivals!
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </>
         )}
       </div>
     </div>

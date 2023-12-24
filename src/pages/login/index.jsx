@@ -50,7 +50,7 @@ export default function Login() {
       >
         <Form className="grid gap-y-4">
           <Input name="email" label="Email: " />
-          <Input name="password" type="password" label="Password: " />
+          <Input name="password" variant="pass" label="Password: " />
           <button
             className="px-4 py-2 rounded-lg mt-2 bg-blue-400 text-white hover:bg-blue-600 transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50"
             type="submit"

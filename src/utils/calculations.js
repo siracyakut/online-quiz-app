@@ -4,11 +4,6 @@ export const calculateTotalScore = (
   maxTimePerQuestion,
 ) => {
   const maxScore = 100;
-  const questionCountOptions = [10, 20, 30, 40, 50];
-
-  if (!questionCountOptions.includes(totalQuestions)) {
-    return null;
-  }
 
   let totalScore = 0;
 
