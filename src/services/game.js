@@ -7,3 +7,5 @@ export const getTriviaQuestions = (difficulty, category, limit) =>
 
 export const userPlacementService = (data) =>
   post("/solved-quizzes/placement", data);
+export const leaderboardService = (data) =>
+  post("/solved-quizzes/leaderboard", data);

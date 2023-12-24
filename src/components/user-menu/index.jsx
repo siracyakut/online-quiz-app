@@ -32,7 +32,7 @@ export default function UserMenu() {
   return (
     <div className="flex items-center justify-center gap-x-4">
       <Link
-        to="/"
+        to="/leaderboards"
         className="flex items-center h-7 md:h-auto gap-x-2 px-4 py-1 bg-blue-400 rounded-lg text-white font-medium hover:bg-blue-600 transition-all"
       >
         <MdLeaderboard />

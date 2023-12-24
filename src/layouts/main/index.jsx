@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { checkAuthService } from "~/services/auth";
 import { login, logout } from "~/store/auth/actions";
 import Loading from "~/components/loading";
+import Footer from "~/layouts/main/footer";
 
 export default function MainLayout() {
   const [isOk, setIsOk] = useState(false);
@@ -26,6 +27,7 @@ export default function MainLayout() {
       <div className="flex-1 mb-7">
         <Outlet />
       </div>
+      <Footer />
       <Toaster />
     </div>
   ) : (

@@ -91,7 +91,7 @@ export default function GameAnswers({ data, limit }) {
           disabled={clicked}
         >
           <span className="flex-shrink-0">
-            {!clicked ? (
+            {clicked ? (
               answer === data.correctAnswer ? (
                 <FaCheck />
               ) : (
