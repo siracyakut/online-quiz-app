@@ -26,15 +26,15 @@ export default function AdminNewQuiz() {
     onError: () => toast.error("An error occured while adding quiz!"),
   });
 
-  const arrayDoluMu = (arr) => {
-    return arr.every((obje) => {
+  const isValidArray = (arr) => {
+    return arr.every((obj) => {
       return (
-        obje.difficulty.trim() !== "" &&
-        obje.category.trim() !== "" &&
-        obje.correctAnswer.trim() !== "" &&
-        obje.question.text.trim() !== "" &&
-        obje.incorrectAnswers.length === 3 &&
-        obje.incorrectAnswers.every(
+        obj.difficulty.trim() !== "" &&
+        obj.category.trim() !== "" &&
+        obj.correctAnswer.trim() !== "" &&
+        obj.question.text.trim() !== "" &&
+        obj.incorrectAnswers.length === 3 &&
+        obj.incorrectAnswers.every(
           (answer) => typeof answer === "string" && answer.trim() !== "",
         )
       );
@@ -149,7 +149,7 @@ export default function AdminNewQuiz() {
             <button
               type="submit"
               className="px-4 py-2 rounded-lg mt-2 bg-blue-400 text-white hover:bg-blue-600 transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!arrayDoluMu(questions)}
+              disabled={!isValidArray(questions)}
             >
               Save Quiz
             </button>
