@@ -2,10 +2,11 @@ import { useGame } from "~/store/game/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import ResultRanking from "~/pages/result/ranking";
 import ResultAnswers from "~/pages/result/answers";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { userPlacementService } from "~/services/game";
 import { useAuth } from "~/store/auth/hooks";
 import Loading from "~/components/loading";
+import { updateUserService } from "~/services/auth";
 
 export default function Result() {
   const { userAnswers, score } = useGame();
@@ -15,6 +16,9 @@ export default function Result() {
   const limit = states && states.limit;
   const difficulty = states && states.difficulty;
   const category = states && states.category;
+
+  const trueCount = userAnswers.filter((x) => x.result).length;
+  const falseCount = userAnswers.filter((x) => !x.result).length;
 
   const { data, error, isFetching } = useQuery(
     ["userPlacement"],
@@ -26,8 +30,21 @@ export default function Result() {
         difficulty,
         questionNumber: limit,
       }),
-    { enabled: userAnswers.length > 0 },
+    {
+      enabled: userAnswers.length > 0,
+      onSuccess: () =>
+        saveMutation.mutate({
+          email,
+          addTrue: trueCount,
+          addFalse: falseCount,
+          addQuiz: 1,
+        }),
+    },
   );
+
+  const saveMutation = useMutation({
+    mutationFn: (data) => updateUserService(data),
+  });
 
   return isFetching ? (
     <Loading />

@@ -41,7 +41,7 @@ export default function Leaderboards() {
               <Tab
                 key={category.id}
                 className={classNames(
-                  "p-2 md:px-4 md:py-2 bg-orange-300 text-sm md:text-base font-medium rounded-md outline-none",
+                  "p-2 md:px-4 md:py-2 bg-orange-300 hover:bg-orange-400 text-sm md:text-base font-medium rounded-md outline-none transition-all",
                   {
                     "border-2 border-orange-900": selectedIndex === idx,
                   },
@@ -57,7 +57,7 @@ export default function Leaderboards() {
             <Loading />
           ) : error ? (
             <p className="bg-red-200 text-red-700 p-4 rounded-lg">
-              {error.data}
+              {error.data || error.error}
             </p>
           ) : (
             CATEGORIES.map((category) => (

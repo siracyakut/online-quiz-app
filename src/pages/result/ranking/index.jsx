@@ -33,7 +33,7 @@ export default function ResultRanking({ placement, maxPlace, score }) {
           You earned
           <FaStar color="orange" />
           <span className="flex items-center text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-orange-400 to-orange-700">
-            <CountUp start={0} end={score} duration={5} />
+            <CountUp start={0} end={score} duration={5} decimals={2} />
           </span>{" "}
           points in total in this quiz.
         </p>
