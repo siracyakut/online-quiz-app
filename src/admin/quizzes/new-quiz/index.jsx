@@ -26,7 +26,7 @@ export default function AdminNewQuiz() {
     onError: () => toast.error("An error occured while adding quiz!"),
   });
 
-  const isValid = (arr) => {
+  const isArrayValid = (arr) => {
     if (questions.length <= 0) return false;
 
     return arr.every(
@@ -160,7 +160,7 @@ export default function AdminNewQuiz() {
             <button
               type="submit"
               className="px-4 py-2 rounded-lg mt-2 bg-blue-400 text-white hover:bg-blue-600 transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!isValid(questions)}
+              disabled={!isArrayValid(questions)}
             >
               Save Quiz
             </button>
