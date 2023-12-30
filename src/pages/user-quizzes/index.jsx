@@ -2,6 +2,8 @@ import { useQuery } from "react-query";
 import { getQuizzesService } from "~/services/quiz";
 import Loading from "~/components/loading";
 import { useNavigate } from "react-router-dom";
+import { PiListNumbers } from "react-icons/pi";
+import { BsSpeedometer2 } from "react-icons/bs";
 
 export default function UserQuizzes() {
   const { data, error, isFetching } = useQuery(["quizzes"], () =>
@@ -32,10 +34,26 @@ export default function UserQuizzes() {
               })
             }
             key={idx}
-            className="bg-yellow-400/50 p-4 rounded-lg"
+            className="w-full flex flex-col items-center justify-center bg-orange-200/50 rounded-lg px-4 py-2 hover:bg-orange-200/90 hover:scale-105 transition-all"
           >
-            {idx + 1}. {quiz.name} - {quiz.difficulty} - {quiz.questionNumber}{" "}
-            questions
+            <div className="flex items-center gap-x-2">
+              <p className="font-bold text-xl text-orange-400">{idx + 1}.</p>
+              <p>
+                {quiz.name.length > 22
+                  ? quiz.name.slice(0, 22) + "..."
+                  : quiz.name}
+              </p>
+            </div>
+            <div className="flex items-center gap-x-4">
+              <div className="flex items-center gap-x-1">
+                <PiListNumbers color="green" size={18} />
+                <p className="text-sm">{quiz.questionNumber} questions</p>
+              </div>
+              <div className="flex items-center gap-x-1">
+                <BsSpeedometer2 color="red" size={18} />
+                <p className="text-sm">{quiz.difficulty} difficulty</p>
+              </div>
+            </div>
           </button>
         ))}
       </div>

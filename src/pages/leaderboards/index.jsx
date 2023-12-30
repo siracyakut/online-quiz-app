@@ -13,6 +13,7 @@ export default function Leaderboards() {
     name: "Music",
     id: "music",
   });
+
   const { data, error, isFetching } = useQuery(
     ["leaderboards", currentCategory],
     () => leaderboardService({ category: currentCategory.id }),

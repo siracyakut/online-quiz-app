@@ -14,7 +14,7 @@ export default function Input({ label, name, variant, ...props }) {
           <Field
             name={name}
             autoComplete="off"
-            className="pr-8 w-full h-10 bg-transparent border border-zinc-500 rounded outline-none px-3 text-15 font-medium text-black focus:border-zinc-400"
+            className="pr-8 w-full h-10 bg-transparent border border-zinc-500 rounded outline-none px-3 text-15 font-medium text-black focus:border-zinc-400 disabled:opacity-50 disabled:border-red-600 disabled:cursor-not-allowed"
             {...props}
             type={visible ? "text" : "password"}
           />
@@ -30,7 +30,7 @@ export default function Input({ label, name, variant, ...props }) {
         <Field
           name={name}
           autoComplete="off"
-          className="w-full h-10 bg-transparent border border-zinc-500 rounded outline-none px-3 text-15 font-medium text-black focus:border-zinc-400"
+          className="w-full h-10 bg-transparent border border-zinc-500 rounded outline-none px-3 text-15 font-medium text-black focus:border-zinc-400 disabled:opacity-50 disabled:border-red-600 disabled:cursor-not-allowed"
           {...props}
         />
       )}

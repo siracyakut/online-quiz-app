@@ -5,9 +5,7 @@ import { FaTimes, FaCheck, FaClock, FaStar } from "react-icons/fa";
 import classNames from "classnames";
 import { useGame } from "~/store/game/hooks";
 
-export default function ResultAnswers({ answers }) {
-  const trueCount = answers.filter((x) => x.result).length;
-  const falseCount = answers.filter((x) => !x.result).length;
+export default function ResultAnswers({ answers, trueCount, falseCount }) {
   const { score } = useGame();
 
   return (
@@ -63,4 +61,6 @@ export default function ResultAnswers({ answers }) {
 
 ResultAnswers.propTypes = {
   answers: PropTypes.array.isRequired,
+  trueCount: PropTypes.number.isRequired,
+  falseCount: PropTypes.number.isRequired,
 };

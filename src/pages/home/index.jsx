@@ -1,18 +1,15 @@
 import { useAuth } from "~/store/auth/hooks";
 import { CATEGORIES } from "~/constants/categories";
-import { Link } from "react-router-dom";
+import { Link, useHref } from "react-router-dom";
 
 export default function Home() {
   const { email } = useAuth();
+  const href = useHref("/");
 
   return (
     <div className="border p-5 rounded-lg grid place-items-center md:flex gap-x-10 w-full">
       <div className="max-w-[150px] mb-10 md:mb-0 md:max-w-xs">
-        <img
-          className="object-contain"
-          src={`${window.location.origin}/quiz-1.png`}
-          alt=""
-        />
+        <img className="object-contain" src={`${href}/quiz-1.png`} alt="" />
       </div>
       <div className="flex-1 flex flex-col gap-7">
         <h2 className="text-4xl text-center md:text-start font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-violet-500">

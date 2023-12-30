@@ -26,19 +26,20 @@ export default function AdminNewQuiz() {
     onError: () => toast.error("An error occured while adding quiz!"),
   });
 
-  const arrayDoluMu = (arr) => {
-    return arr.every((obje) => {
-      return (
-        obje.difficulty.trim() !== "" &&
-        obje.category.trim() !== "" &&
-        obje.correctAnswer.trim() !== "" &&
-        obje.question.text.trim() !== "" &&
-        obje.incorrectAnswers.length === 3 &&
-        obje.incorrectAnswers.every(
+  const isValid = (arr) => {
+    if (questions.length <= 0) return false;
+
+    return arr.every(
+      (obj) =>
+        obj.difficulty.trim() !== "" &&
+        obj.category.trim() !== "" &&
+        obj.correctAnswer.trim() !== "" &&
+        obj.question.text.trim() !== "" &&
+        obj.incorrectAnswers.length === 3 &&
+        obj.incorrectAnswers.every(
           (answer) => typeof answer === "string" && answer.trim() !== "",
-        )
-      );
-    });
+        ),
+    );
   };
 
   return (
@@ -61,14 +62,23 @@ export default function AdminNewQuiz() {
           })
         }
       >
-        {({ values }) => (
+        {({ values, isValid }) => (
           <Form className="grid gap-y-4">
-            <Input name="quizName" label="Quiz Name:" />
+            <Input
+              name="quizName"
+              label="Quiz Name:"
+              disabled={questions.length > 0}
+            />
             <Input
               name="quizDiff"
               label="Quiz Difficulty: (medium-hard-easy)"
+              disabled={questions.length > 0}
             />
-            <Input name="quizCategory" label="Quiz Category:" />
+            <Input
+              name="quizCategory"
+              label="Quiz Category:"
+              disabled={questions.length > 0}
+            />
             {questions.map((question, idx) => (
               <div
                 key={idx}
@@ -143,13 +153,14 @@ export default function AdminNewQuiz() {
                   },
                 ]);
               }}
+              disabled={!isValid}
             >
               Add new question
             </button>
             <button
               type="submit"
               className="px-4 py-2 rounded-lg mt-2 bg-blue-400 text-white hover:bg-blue-600 transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!arrayDoluMu(questions)}
+              disabled={!isValid(questions)}
             >
               Save Quiz
             </button>

@@ -4,7 +4,6 @@ export const calculateTotalScore = (
   maxTimePerQuestion,
 ) => {
   const maxScore = 100;
-
   let totalScore = 0;
 
   userAnswers.forEach((answer) => {

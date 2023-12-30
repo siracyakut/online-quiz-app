@@ -5,7 +5,7 @@ Solve all the quizzes and improve yourself. Create your own quiz set and solve t
 
 ## Demo
 A demo is worth a thousand words.\
-https://siracyakut.com/
+https://siracyakut.com/quiz/
 
 ## Project Support Features
 

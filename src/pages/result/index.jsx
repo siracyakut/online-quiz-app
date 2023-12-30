@@ -57,7 +57,11 @@ export default function Result() {
         maxPlace={data.data.maxPlace}
         score={score}
       />
-      <ResultAnswers answers={userAnswers} />
+      <ResultAnswers
+        answers={userAnswers}
+        trueCount={trueCount}
+        falseCount={falseCount}
+      />
     </div>
   ) : (
     <Navigate to="/" />
